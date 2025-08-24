@@ -101,7 +101,7 @@ export default function AboutSection() {
             <span className="font-semibold text-white">Registration:</span> First
             register officially on{" "}
             <a
-              href="https://www.spaceappschallenge.org/"
+              href="https://www.spaceappschallenge.org/2025/local-events/jabalpur/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 underline underline-offset-4 decoration-cyan-400 hover:text-cyan-300 transition"
@@ -112,7 +112,7 @@ export default function AboutSection() {
             <span className="text-cyan-400 font-semibold">Jabalpur Local Edition</span>{" "}
             spot via{" "}
             <a
-              href="https://unstop.com/"
+              href="https://unstop.com/hackathons/nasa-space-apps-challenge-2025-jabalpur-edition-gyan-ganga-institute-of-technology-and-sciences-1543268?lb=b0oCYV50&utm_medium=Share&utm_source=nihalyad4001&utm_campaign=Innovation_challenge"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 underline underline-offset-4 decoration-purple-400 hover:text-purple-300 transition"

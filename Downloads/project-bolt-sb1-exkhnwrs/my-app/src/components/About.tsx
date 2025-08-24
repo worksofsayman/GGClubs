@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 import { Montserrat } from "next/font/google";
-import { ExternalLink } from "lucide-react"; 
+import { ExternalLink } from "lucide-react";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -25,13 +25,21 @@ const containerVariants = {
 // Fade-up for text
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: easeOut },
+  },
 };
 
 // Scale-in for cards
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.9 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, ease: easeOut },
+  },
 };
 
 export default function AboutSection() {
@@ -60,7 +68,7 @@ export default function AboutSection() {
       </div>
 
       {/* Content wrapper */}
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         className="relative z-10 max-w-6xl mx-auto text-center"
       >

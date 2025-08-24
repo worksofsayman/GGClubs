@@ -110,17 +110,16 @@ export default function Home() {
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
             <div className="hidden md:flex space-x-6 text-white font-medium">
-              <a href="#about" className="hover:text-blue-300">About</a>
-              <a href="#faq" className="hover:text-blue-300">FAQ</a>
+              <a href="https://www.spaceappschallenge.org/2025/challenges/" className="hover:text-blue-300">Challenges</a>
+              <a href="/partners" className="hover:text-blue-300">Partners</a>
               <a href="#teams" className="hover:text-blue-300">Contact</a>
             </div>
           </div>
           {isOpen && (
             <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[80vw] sm:w-[400px] bg-white/10 backdrop-blur-lg text-white flex flex-col items-center space-y-4 py-6 rounded-xl border border-white/20 shadow-lg md:hidden z-30">
-              <a href="#about" onClick={() => setIsOpen(false)}>About</a>
-              <a href="#faq" onClick={() => setIsOpen(false)}>FAQ</a>
-              <a href="#teams" onClick={() => setIsOpen(false)}>Team</a>
-              <a href="#register" onClick={() => setIsOpen(false)}>Register</a>
+              <a href="https://www.spaceappschallenge.org/2025/challenges/" onClick={() => setIsOpen(false)}>Challenges</a>
+              <a href="/partners" onClick={() => setIsOpen(false)}>Partners</a>
+              <a href="#teams" onClick={() => setIsOpen(false)}>Contact</a>
             </div>
           )}
         </nav>
@@ -132,7 +131,7 @@ export default function Home() {
           </h1>
           <div className="mt-4 flex items-center justify-center gap-2 text-gray-200">
             <MapPin size={28} className="text-red-400 drop-shadow" />
-            <h2 className="text-2xl md:text-4xl font-semibold drop-shadow text-white">Jabalpur 2025</h2>
+            <h2 className="text-2xl md:text-4xl font-semibold drop-shadow text-white">Jabalpur, India 2025</h2>
           </div>
           <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl">
             Powered by <span className="font-bold text-white">Unstop</span>
@@ -142,7 +141,7 @@ export default function Home() {
               href="#faq"
               className="px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition shadow-lg flex items-center gap-2"
             >
-              FAQ's
+              FAQ&apos;s
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
               </svg>
@@ -178,6 +177,7 @@ export default function Home() {
 
       {/* TEAM SECTION */}
       <motion.section
+        id="teams"   // <-- add this
         initial="hidden"
         whileInView="visible"
         variants={frontVariant}
@@ -186,6 +186,7 @@ export default function Home() {
       >
         <TeamPage sections={teamSections} />
       </motion.section>
+
 
       {/* FOOTER */}
       <footer className="w-full bg-black text-gray-400 py-6 text-center border-t border-white/20">

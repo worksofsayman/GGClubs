@@ -4,7 +4,7 @@ import { clubsData } from '../data';
 import ClubCard from './ClubCard';
 import { User, Mail, Phone, GraduationCap, Users, ArrowRight, Loader, MapPin, Star, Calendar, Award } from 'lucide-react';
 
-const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzC2SkUrB2vEMqqM6UCmdMAxkGaUgkoXfHpOUGO5LwwRLehXjvbjkXgQVVD6HGqCfof/exec';
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzS4Wqz_6Q86m7iTcvV-3LuP0QVynUS_MCm4LB8VZAdaoTermwKG0inApov8EyXgZXf/exec';
 
 const StudentForm: React.FC = () => {
   const [selectedCollege, setSelectedCollege] = useState<College>('GGITS');

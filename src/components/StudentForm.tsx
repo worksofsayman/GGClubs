@@ -4,7 +4,7 @@ import { clubsData } from '../data';
 import ClubCard from './ClubCard';
 import { User, Mail, Phone, GraduationCap, Users, ArrowRight, MapPin, Star, Calendar, Award } from 'lucide-react';
 
-const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzwbZGtncTtt11JbsEynw8sTqVAP73dZmonVvv203SgdFsqItkZl9IkC5TdWjipG7gR/exec';
+const GAS_ENDPOINT = 'https://script.google.com/macros/library/d/1wAYZejCs61K4OlkemFtFmn6ArHSFhSIGPP_y3dRGz_8AzkAIWn2pjf0k/8';
 
 const StudentForm: React.FC = () => {
   const [selectedCollege, setSelectedCollege] = useState<College>('GGITS');
@@ -40,23 +40,22 @@ const StudentForm: React.FC = () => {
     };
 
     try {
-      const response = await fetch(GAS_ENDPOINT, {
+      // Using mode: 'no-cors' avoids CORS issues, but response is opaque
+      await fetch(GAS_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData)
+        body: JSON.stringify(postData),
+        mode: 'no-cors'
       });
 
-      const result = await response.json();
+      // Open Google Form immediately (no JSON needed because 'no-cors' hides the response)
+      window.open(selectedClubData.googleFormLink, '_blank');
 
-      if (result.status === 'success') {
-        window.open(selectedClubData.googleFormLink, '_blank');
-        setFormData({ fullName: '', email: '', phoneNumber: '', branch: '', selectedClub: '' });
-      } else {
-        alert('Submission failed: ' + (result.message || 'Unknown error'));
-      }
+      // Reset form
+      setFormData({ fullName: '', email: '', phoneNumber: '', branch: '', selectedClub: '' });
     } catch (err) {
       console.error('Submission failed:', err);
-      alert('Failed to submit. Check console for details.');
+      alert('Failed to submit. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -89,20 +88,20 @@ const StudentForm: React.FC = () => {
         <div className="mb-12 animate-slideDown" style={{ animationDelay: '0.2s' }}>
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Select Your College</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(['GGITS', 'GGCT', 'GGCE'] as College[]).map((college) => (
+            {(['GGITS', 'GGCT', 'GGCE'] as College[]).map(college => (
               <div
                 key={college}
                 onClick={() => handleCollegeChange(college)}
                 className={`relative overflow-hidden rounded-3xl cursor-pointer transition-all duration-500 transform ${selectedCollege === college
                   ? 'ring-4 ring-blue-500 shadow-2xl scale-[1.02]'
                   : 'hover:shadow-xl hover:scale-[1.02]'
-                  }`}
+                }`}
               >
                 <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300">
                   <img
                     src={collegeImages[college]}
                     alt={`${college} Campus`}
-                    className="w-full h-full object-cover transition-transform duration-700 scale-[1.02]"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                   {selectedCollege === college && (
@@ -117,8 +116,7 @@ const StudentForm: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <p className="text-white/90 text-sm">{filteredClubs.length} Active Clubs</p>
                     <span className="text-blue-200 text-sm font-medium flex items-center gap-1">
-                      <Award className="w-4 h-4" />
-                      Premium
+                      <Award className="w-4 h-4" /> Premium
                     </span>
                   </div>
                 </div>
@@ -143,7 +141,7 @@ const StudentForm: React.FC = () => {
                 <input
                   type="text"
                   value={formData.fullName}
-                  onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
+                  onChange={e => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
                   placeholder="Enter your full name"
                   className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-gray-50/50 text-lg"
                   required
@@ -158,7 +156,7 @@ const StudentForm: React.FC = () => {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   placeholder="your.email@example.com"
                   className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-gray-50/50 text-lg"
                   required
@@ -173,7 +171,7 @@ const StudentForm: React.FC = () => {
                 <input
                   type="tel"
                   value={formData.phoneNumber}
-                  onChange={(e) => setFormData(prev => ({ ...prev, phoneNumber: e.target.value }))}
+                  onChange={e => setFormData(prev => ({ ...prev, phoneNumber: e.target.value }))}
                   placeholder="+91 98765 43210"
                   className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-gray-50/50 text-lg"
                   required
@@ -187,7 +185,7 @@ const StudentForm: React.FC = () => {
                 </label>
                 <select
                   value={formData.branch}
-                  onChange={(e) => setFormData(prev => ({ ...prev, branch: e.target.value }))}
+                  onChange={e => setFormData(prev => ({ ...prev, branch: e.target.value }))}
                   className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-gray-50/50 text-lg appearance-none"
                   required
                 >
@@ -203,7 +201,7 @@ const StudentForm: React.FC = () => {
                 </label>
                 <select
                   value={formData.selectedClub}
-                  onChange={(e) => setFormData(prev => ({ ...prev, selectedClub: e.target.value }))}
+                  onChange={e => setFormData(prev => ({ ...prev, selectedClub: e.target.value }))}
                   className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-gray-50/50 text-lg appearance-none"
                   required
                 >

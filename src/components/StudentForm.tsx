@@ -22,7 +22,11 @@ const StudentForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedClubData) return;
+
+    if (!selectedClubData) {
+      alert('Please select a valid club before submitting.');
+      return;
+    }
 
     setIsLoading(true);
 
@@ -31,34 +35,46 @@ const StudentForm: React.FC = () => {
       email: formData.email,
       phoneNumber: formData.phoneNumber,
       branch: formData.branch,
-      selectedCollege: selectedCollege,
+      selectedCollege,
       selectedClub: selectedClubData.clubName
     };
 
+    console.log('Submitting:', postData);
+
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyloF-l9weL4T54xIycl2XM-Bet8yEMOjV51eDjkei4KBMY9Oe_R5Y61qJ5VzSgLwZh/exec', {
+      const response = await fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData)
       });
 
-      const result = await response.json();
-      console.log('Google Sheet response:', result);
+      console.log('HTTP Status:', response.status);
+      const contentType = response.headers.get('content-type');
+      console.log('Content-Type:', contentType);
+
+      let result;
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected non-JSON response: ${text}`);
+      }
+
+      console.log('API Result:', result);
 
       if (result.status === 'success') {
         window.open(selectedClubData.googleFormLink, '_blank');
       } else {
-        alert('Failed to submit: ' + result.message);
+        alert('Submission failed: ' + (result.message || 'Unknown error'));
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('Error submitting form. Please try again later.');
+    } catch (err) {
+      console.error('Submission failed:', err);
+      alert('Failed to submit. See console for details.');
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
+
 
   const handleCollegeChange = (college: College) => {
     setSelectedCollege(college);
@@ -93,8 +109,8 @@ const StudentForm: React.FC = () => {
                 key={college}
                 onClick={() => handleCollegeChange(college)}
                 className={`relative overflow-hidden rounded-3xl cursor-pointer transition-all duration-500 transform ${selectedCollege === college
-                    ? 'ring-4 ring-blue-500 shadow-2xl scale-[1.02]'
-                    : 'hover:shadow-xl hover:scale-[1.02]'
+                  ? 'ring-4 ring-blue-500 shadow-2xl scale-[1.02]'
+                  : 'hover:shadow-xl hover:scale-[1.02]'
                   }`}
               >
                 <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300">

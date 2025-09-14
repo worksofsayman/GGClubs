@@ -6,7 +6,7 @@ export const clubsData: Club[] = [
     collegeName: 'GGITS',
     clubName: 'AIALCHEMIST',
     description: 'Explore the fascinating world of Artificial Intelligence and Machine Learning. Work on cutting-edge projects, learn from industry experts, and build innovative solutions using the latest AI technologies.',
-    googleFormLink: 'https://forms.gle/abcd123',
+    googleFormLink: 'https://forms.gle/92ai3ee5ZNgcjHyQA',
     startingYear: 2019,
     memberCount: 150,
     pastEvents: [

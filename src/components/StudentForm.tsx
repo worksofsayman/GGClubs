@@ -4,6 +4,8 @@ import { clubsData } from '../data';
 import ClubCard from './ClubCard';
 import { User, Mail, Phone, GraduationCap, Users, ArrowRight, Loader, MapPin, Star, Calendar, Award } from 'lucide-react';
 
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzC2SkUrB2vEMqqM6UCmdMAxkGaUgkoXfHpOUGO5LwwRLehXjvbjkXgQVVD6HGqCfof/exec';
+
 const StudentForm: React.FC = () => {
   const [selectedCollege, setSelectedCollege] = useState<College>('GGITS');
   const [formData, setFormData] = useState<StudentFormData>({
@@ -42,7 +44,7 @@ const StudentForm: React.FC = () => {
     console.log('Submitting:', postData);
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+      const response = await fetch(GAS_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData)
@@ -69,12 +71,11 @@ const StudentForm: React.FC = () => {
       }
     } catch (err) {
       console.error('Submission failed:', err);
-      alert('Failed to submit. See console for details.');
+      alert('Failed to submit. Check console for details.');
     } finally {
       setIsLoading(false);
     }
   };
-
 
   const handleCollegeChange = (college: College) => {
     setSelectedCollege(college);
@@ -122,13 +123,8 @@ const StudentForm: React.FC = () => {
                     onLoad={() => setImageLoaded(true)}
                   />
                   {!imageLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center"><img
-                      src={collegeImages[college]}
-                      alt={`${college} Campus`}
-                      className={`w-full h-full object-cover transition-all duration-700 ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
-                        }`}
-                      onLoad={() => setImageLoaded(true)}
-                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Loader className="w-10 h-10 text-blue-500 animate-spin" />
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
@@ -167,15 +163,9 @@ const StudentForm: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Full Name */}
               <div className="relative group">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    Full Name
-                  </label>
-                  {activeField === 'fullName' && (
-                    <span className="text-xs text-blue-500 animate-pulse">Required</span>
-                  )}
-                </div>
+                <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  <User className="w-4 h-4" /> Full Name
+                </label>
                 <input
                   type="text"
                   value={formData.fullName}
@@ -190,15 +180,9 @@ const StudentForm: React.FC = () => {
 
               {/* Email */}
               <div className="relative group">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
-                    Email Address
-                  </label>
-                  {activeField === 'email' && (
-                    <span className="text-xs text-blue-500 animate-pulse">Required</span>
-                  )}
-                </div>
+                <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  <Mail className="w-4 h-4" /> Email Address
+                </label>
                 <input
                   type="email"
                   value={formData.email}
@@ -213,15 +197,9 @@ const StudentForm: React.FC = () => {
 
               {/* Phone */}
               <div className="relative group">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
-                    Phone Number
-                  </label>
-                  {activeField === 'phoneNumber' && (
-                    <span className="text-xs text-blue-500 animate-pulse">Required</span>
-                  )}
-                </div>
+                <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  <Phone className="w-4 h-4" /> Phone Number
+                </label>
                 <input
                   type="tel"
                   value={formData.phoneNumber}
@@ -236,15 +214,9 @@ const StudentForm: React.FC = () => {
 
               {/* Branch */}
               <div className="relative group">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <GraduationCap className="w-4 h-4" />
-                    Branch
-                  </label>
-                  {activeField === 'branch' && (
-                    <span className="text-xs text-blue-500 animate-pulse">Required</span>
-                  )}
-                </div>
+                <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4" /> Branch
+                </label>
                 <select
                   value={formData.branch}
                   onChange={(e) => setFormData(prev => ({ ...prev, branch: e.target.value }))}
@@ -262,15 +234,9 @@ const StudentForm: React.FC = () => {
 
               {/* Club Selection */}
               <div className="relative group">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    Preferred Club
-                  </label>
-                  {activeField === 'selectedClub' && (
-                    <span className="text-xs text-blue-500 animate-pulse">Required</span>
-                  )}
-                </div>
+                <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  <Users className="w-4 h-4" /> Preferred Club
+                </label>
                 <select
                   value={formData.selectedClub}
                   onChange={(e) => setFormData(prev => ({ ...prev, selectedClub: e.target.value }))}
@@ -290,18 +256,17 @@ const StudentForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading || !selectedClubData}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-5 px-8 rounded-2xl font-bold text-xl transition-all duration-500 transform hover:scale-[1.02] hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-4 relative overflow-hidden group"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-5 px-8 rounded-2xl font-bold text-xl transition-all duration-500 transform hover:scale-[1.02] hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-4"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 {isLoading ? (
                   <>
-                    <Loader className="w-6 h-6 animate-spin z-10" />
-                    <span className="z-10">Processing Application...</span>
+                    <Loader className="w-6 h-6 animate-spin" />
+                    Processing Application...
                   </>
                 ) : (
                   <>
-                    <span className="z-10">Join Now</span>
-                    <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300 z-10" />
+                    Join Now
+                    <ArrowRight className="w-6 h-6" />
                   </>
                 )}
               </button>

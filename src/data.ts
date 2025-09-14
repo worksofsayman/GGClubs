@@ -4,7 +4,7 @@ export const clubsData: Club[] = [
   {
     id: '1',
     collegeName: 'GGITS',
-    clubName: 'AI & ML Club',
+    clubName: 'AIALCHEMIST',
     description: 'Explore the fascinating world of Artificial Intelligence and Machine Learning. Work on cutting-edge projects, learn from industry experts, and build innovative solutions using the latest AI technologies.',
     googleFormLink: 'https://forms.gle/abcd123',
     startingYear: 2019,
@@ -12,24 +12,24 @@ export const clubsData: Club[] = [
     pastEvents: [
       {
         id: '1',
-        title: 'AI Workshop 2024',
-        date: '2024-03-15',
+        title: 'NVIDIA DLI - Virtual Session',
+        date: '2025-05-23',
         description: 'Introduction to Machine Learning algorithms and practical implementation',
-        participants: 85
+        participants: 670
       },
       {
         id: '2',
-        title: 'Hackathon AI Challenge',
-        date: '2024-01-20',
-        description: 'Build AI solutions for real-world problems in 48 hours',
-        participants: 120
+        title: 'React Unfiltered -  Virtual Session',
+        date: '2025-06-08',
+        description: 'Build a minimal web app using React.js',
+        participants: 240
       }
     ]
   },
   {
     id: '2',
     collegeName: 'GGITS',
-    clubName: 'Coding Club',
+    clubName: 'Tech and Innovation Club',
     description: 'Enhance your programming skills through competitive coding, hackathons, and collaborative projects. Join a community of passionate developers and level up your coding expertise.',
     googleFormLink: 'https://forms.gle/xyz789',
     startingYear: 2018,
@@ -83,7 +83,7 @@ export const clubsData: Club[] = [
   {
     id: '5',
     collegeName: 'GGCT',
-    clubName: 'Robotics Club',
+    clubName: 'The Wings',
     description: 'Build robots and automation tools that solve real-world problems. Engage in hands-on projects involving sensors, microcontrollers, and advanced robotics technologies.',
     googleFormLink: 'https://forms.gle/ijkl789',
     startingYear: 2019,
